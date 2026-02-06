@@ -12,7 +12,7 @@ const projects = [
       frontend: "https://github.com/username/palace-perfume-frontend",
       backend: "https://github.com/username/palace-perfume-backend",
     },
-    tech: ["Spring Boot", "Angular", "MySQL", "Stripe"],
+    tech: ["Spring Boot", "Angular", "MySQL"],
   },
   {
     title: "AI Chatbot",
