@@ -3,13 +3,21 @@ import { Github, ExternalLink } from "lucide-react";
 const ProjectCard = ({ title, description, imageUrl, link, github, tech }) => {
   return (
     <div className="group relative overflow-hidden rounded-2xl">
+
       {/* Image */}
-      <a href={link} target="_blank" rel="noopener noreferrer">
+      {link ? (
+        <a href={link} target="_blank" rel="noopener noreferrer">
+          <div
+            className="h-52 rounded-xl bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+            style={{ backgroundImage: `url(${imageUrl})` }}
+          />
+        </a>
+      ) : (
         <div
           className="h-52 rounded-xl bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
           style={{ backgroundImage: `url(${imageUrl})` }}
         />
-      </a>
+      )}
 
       <div className="p-4">
         <h3 className="text-xl font-semibold text-white mb-1">{title}</h3>
@@ -29,19 +37,39 @@ const ProjectCard = ({ title, description, imageUrl, link, github, tech }) => {
 
         {/* Actions */}
         <div className="flex flex-wrap gap-4 text-sm items-center">
-          <a
-            href={link}
-            target="_blank"
-            className="flex items-center gap-1 text-blue-400 hover:text-blue-300"
-          >
-            <ExternalLink size={16} />
-            Live
-          </a>
 
+          {/* Live */}
+          {link && (
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-blue-400 hover:text-blue-300"
+            >
+              <ExternalLink size={16} />
+              Live
+            </a>
+          )}
+
+          {/* Single GitHub repo */}
+          {github?.repo && (
+            <a
+              href={github.repo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-gray-400 hover:text-white"
+            >
+              <Github size={16} />
+              GitHub
+            </a>
+          )}
+
+          {/* Frontend repo */}
           {github?.frontend && (
             <a
               href={github.frontend}
               target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-1 text-gray-400 hover:text-white"
             >
               <Github size={16} />
@@ -49,16 +77,19 @@ const ProjectCard = ({ title, description, imageUrl, link, github, tech }) => {
             </a>
           )}
 
+          {/* Backend repo */}
           {github?.backend && (
             <a
               href={github.backend}
               target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-1 text-gray-400 hover:text-white"
             >
               <Github size={16} />
               Backend
             </a>
           )}
+
         </div>
       </div>
     </div>

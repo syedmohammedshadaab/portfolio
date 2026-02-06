@@ -18,7 +18,9 @@ const projects = [
     title: "AI Chatbot",
     description: "Spring AI powered conversational assistant",
     imageUrl: "/images/chatbot.png",
-    link: "https://your-live-project.com",
+    github: {
+      repo: "https://github.com/USERNAME/ai-chatbot",
+    },
     tech: ["Spring AI", "Java", "REST API", "OpenAI"],
   },
 ];
@@ -67,7 +69,7 @@ const Projects = () => {
         variants={container}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true }}   // ✅ KEY FIX (prevents stutter)
+        viewport={{ once: true }} // ✅ KEY FIX (prevents stutter)
         className="max-w-7xl mx-auto grid gap-10 sm:grid-cols-2 lg:grid-cols-3"
       >
         {projects.map((project, index) => (
