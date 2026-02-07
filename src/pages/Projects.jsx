@@ -7,7 +7,7 @@ const projects = [
     title: "Palace Perfume E-Commerce",
     description: "Full-stack e-commerce platform for perfumes",
     imageUrl: "/images/ecom.png",
-    link: "",
+    link: "perfume-palace-rho.vercel.app",
     github: {
       frontend: "https://github.com/username/palace-perfume-frontend",
       backend: "https://github.com/username/palace-perfume-backend",
