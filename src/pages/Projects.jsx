@@ -17,7 +17,7 @@ const projects = [
   {
     title: "AI Chatbot",
     description: "Spring AI powered conversational assistant",
-    imageUrl: "/images/chatbot.png",
+    imageUrl: "",
     github: {
       repo: "https://github.com/USERNAME/ai-chatbot",
     },
