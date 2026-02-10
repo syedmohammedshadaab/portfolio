@@ -19,7 +19,7 @@ const projects = [
     description: "Spring AI powered conversational assistant",
     imageUrl: "",
     github: {
-      repo: "https://github.com/USERNAME/ai-chatbot",
+      repo: "",
     },
     tech: ["Spring AI", "Java", "REST API", "OpenAI"],
   },
