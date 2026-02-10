@@ -19,7 +19,7 @@ const projects = [
     description: "Spring AI powered conversational assistant",
     imageUrl: "",
     github: {
-      repo: "",
+      repo: "https://github.com/syedmohammedshadaab/RAG_Question_Answering_bot",
     },
     tech: ["Spring AI", "Java", "REST API", "OpenAI"],
   },
