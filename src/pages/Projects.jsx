@@ -16,7 +16,8 @@ const projects = [
   },
   {
     title: "RAG-Based Q&A Chatbot",
-    description: "Built a Retrieval-Augmented Generation chatbot enabling users to upload PDFs and ask context-aware questions",
+    description:
+      "Built a Retrieval-Augmented Generation chatbot enabling users to upload PDFs and ask context-aware questions",
     imageUrl: "",
     github: {
       repo: "https://github.com/syedmohammedshadaab/RAG_Question_Answering_bot",

@@ -23,7 +23,7 @@ const Navbar = () => {
           className="text-xl font-bold text-white"
         >
           <NavLink to="/" className="group">
-            Shadaab{" "}
+            SHADAAB{" "}
             <span className="text-blue-500 group-hover:text-blue-400 transition">
               .
             </span>
