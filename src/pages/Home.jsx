@@ -12,14 +12,14 @@ const fadeUp = {
   visible: { opacity: 1, y: 0 },
 };
 
-const sectionSpacing = "mb-32";
+const sectionSpacing = "mb-36";
 
 const Home = () => {
   return (
-    <div className="min-h-screen w-full px-6 sm:px-10 pt-32 pb-24 text-white relative">
+    <div className="min-h-screen w-full px-6 sm:px-10 lg:px-16 pt-32 pb-24 text-white relative">
 
       {/* ================= HERO ================= */}
-      <section className="max-w-4xl mx-auto text-center md:text-left">
+      <section className="max-w-5xl mx-auto text-center md:text-left">
 
         <TypewriterText />
 
@@ -28,7 +28,7 @@ const Home = () => {
           initial="hidden"
           animate="visible"
           transition={{ duration: 0.6 }}
-          className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mt-6"
+          className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mt-6"
         >
           Hi, I'm{" "}
           <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 bg-clip-text text-transparent">
@@ -41,31 +41,51 @@ const Home = () => {
           initial="hidden"
           animate="visible"
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="mt-6 text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto md:mx-0"
+          className="mt-6 text-lg lg:text-xl text-gray-300 max-w-2xl mx-auto md:mx-0 leading-relaxed"
         >
           Full Stack Developer building scalable applications with{" "}
           <span className="text-blue-400 font-medium">Angular</span> and{" "}
           <span className="text-indigo-400 font-medium">Spring Boot</span>.
         </motion.p>
 
-        {/* SOCIAL GLASS CONTAINER */}
+        {/* SOCIAL ICONS CLEAN ALIGNMENT */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate="visible"
           transition={{ duration: 0.6, delay: 0.25 }}
-          className="flex justify-center md:justify-start gap-6 mt-10
-                     bg-white/5 backdrop-blur-md
-                     border border-white/10
-                     px-8 py-4 rounded-full w-fit mx-auto md:mx-0"
+          className="flex items-center justify-center md:justify-start gap-5 mt-10"
         >
-          <a href="" target="_blank" rel="noopener noreferrer">
-            <GitHubIcon className="w-6 h-6 text-gray-400 hover:text-white transition hover:scale-110" />
-          </a>
-          <a href="" target="_blank" rel="noopener noreferrer">
-            <LinkedInIcon className="w-6 h-6 text-gray-400 hover:text-white transition hover:scale-110" />
-          </a>
-          <EmailIcon email="" />
+          {[ 
+            { component: <GitHubIcon />, href: "" },
+            { component: <LinkedInIcon />, href: "" }
+          ].map((item, index) => (
+            <a
+              key={index}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center
+                         w-11 h-11 rounded-full
+                         bg-white/5 border border-white/10
+                         hover:bg-blue-600/20
+                         hover:border-blue-500/40
+                         transition duration-300"
+            >
+              <div className="w-5 h-5 text-gray-300">
+                {item.component}
+              </div>
+            </a>
+          ))}
+
+          <div className="flex items-center justify-center
+                          w-11 h-11 rounded-full
+                          bg-white/5 border border-white/10
+                          hover:bg-blue-600/20
+                          hover:border-blue-500/40
+                          transition duration-300">
+            <EmailIcon email="" />
+          </div>
         </motion.div>
 
         {/* CTA SECTION */}
@@ -74,23 +94,22 @@ const Home = () => {
           initial="hidden"
           animate="visible"
           transition={{ duration: 0.6, delay: 0.35 }}
-          className="mt-12 flex flex-col items-center md:items-start gap-6"
+          className="mt-12 flex flex-col md:flex-row md:items-center gap-6"
         >
-          {/* Primary Button */}
+          {/* Primary */}
           <a
             href="/projects"
-            className="w-full sm:w-auto text-center
-                       bg-blue-600 hover:bg-blue-700
+            className="bg-blue-600 hover:bg-blue-700
                        px-8 py-4 rounded-full
-                       font-semibold
-                       shadow-[0_0_30px_rgba(59,130,246,0.4)]
+                       font-semibold text-base
+                       shadow-[0_0_35px_rgba(59,130,246,0.4)]
                        transition-all duration-300"
           >
             View Projects
           </a>
 
-          {/* Secondary Actions */}
-          <div className="flex gap-8 text-sm text-gray-400">
+          {/* Secondary */}
+          <div className="flex gap-8 text-base font-medium text-gray-300">
             <a
               href=""
               target="_blank"
@@ -112,7 +131,7 @@ const Home = () => {
       </section>
 
       {/* Divider */}
-      <div className="h-px bg-white/10 my-24 max-w-6xl mx-auto" />
+      <div className="h-px bg-white/10 my-28 max-w-6xl mx-auto" />
 
       {/* ================= ABOUT ================= */}
       <motion.section
@@ -121,16 +140,17 @@ const Home = () => {
         whileInView="visible"
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className={`max-w-3xl mx-auto text-center md:text-left ${sectionSpacing}`}
+        className={`max-w-4xl mx-auto text-center md:text-left ${sectionSpacing}`}
       >
-        <h2 className="text-2xl sm:text-3xl font-bold mb-6">
+        <h2 className="text-3xl font-bold mb-8">
           <span className="text-blue-500">/</span> About
         </h2>
 
-        <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
+        <p className="text-lg text-gray-300 leading-loose">
           I am a passionate full-stack developer focused on building clean,
-          maintainable, and high-performance web applications using modern
-          frontend and backend technologies.
+          scalable, and high-performance web applications using modern
+          frontend and backend technologies. I enjoy transforming complex
+          problems into elegant digital solutions.
         </p>
       </motion.section>
 
@@ -143,24 +163,23 @@ const Home = () => {
         transition={{ duration: 0.6 }}
         className={`max-w-6xl mx-auto ${sectionSpacing}`}
       >
-        <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center md:text-left">
+        <h2 className="text-3xl font-bold mb-10 text-center md:text-left">
           <span className="text-blue-500">/</span> Skills
         </h2>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
           {[
             "Java", "TypeScript", "Angular", "React",
-            "Spring Boot", "Spring MVC", "Hibernate",
-            "MySQL", "MongoDB", "Docker",
-            "Git", "Postman", "Maven",
-            "IntelliJ", "VS Code", "Vercel"
+            "Spring Boot", "Hibernate", "MySQL",
+            "MongoDB", "Docker", "Git",
+            "Postman", "IntelliJ", "VS Code", "Vercel"
           ].map((skill) => (
             <div
               key={skill}
-              className="text-center py-3 rounded-xl
+              className="text-center py-4 rounded-2xl
                          bg-white/5 border border-white/10
-                         hover:border-blue-500/50
                          hover:bg-white/10
+                         hover:border-blue-500/40
                          transition duration-300"
             >
               {skill}
@@ -169,7 +188,7 @@ const Home = () => {
         </div>
       </motion.section>
 
-      {/* ================= TIMELINE ================= */}
+      {/* ================= EXPERIENCE ================= */}
       <motion.section
         variants={fadeUp}
         initial="hidden"
@@ -178,7 +197,7 @@ const Home = () => {
         transition={{ duration: 0.6 }}
         className={`max-w-6xl mx-auto ${sectionSpacing}`}
       >
-        <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center md:text-left">
+        <h2 className="text-3xl font-bold mb-10 text-center md:text-left">
           <span className="text-blue-500">/</span> Experience
         </h2>
 
@@ -194,7 +213,7 @@ const Home = () => {
         transition={{ duration: 0.6 }}
         className="max-w-6xl mx-auto"
       >
-        <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center md:text-left">
+        <h2 className="text-3xl font-bold mb-10 text-center md:text-left">
           <span className="text-blue-500">/</span> Projects
         </h2>
 
