@@ -33,7 +33,7 @@ const Navbar = () => {
           className="text-xl font-bold text-white"
         >
           <NavLink to="/" className="group">
-            name{" "}
+            Name{" "}
             <span className="text-blue-500 group-hover:text-blue-400 transition">
               .
             </span>
@@ -75,37 +75,65 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* Hamburger Icon (Mobile Only) */}
+        {/* Hamburger Icon */}
         <div
-          className="md:hidden text-2xl text-white cursor-pointer"
+          className="md:hidden text-2xl text-white cursor-pointer z-50"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <FaTimes /> : <FaBars />}
         </div>
       </div>
 
-      {/* Mobile Dropdown Menu */}
+      {/* Modern Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
-          <motion.ul
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden flex flex-col items-center gap-6 py-6
-                       bg-black/90 backdrop-blur-md"
-          >
-            {navLinks.map((item) => (
-              <NavLink
-                key={item.name}
-                to={item.path}
-                onClick={() => setIsOpen(false)}
-                className="text-gray-300 text-lg hover:text-white transition"
-              >
-                {item.name}
-              </NavLink>
-            ))}
-          </motion.ul>
+          <>
+            {/* Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.6 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-black backdrop-blur-sm"
+              onClick={() => setIsOpen(false)}
+            />
+
+            {/* Slide Panel */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              className="fixed top-0 right-0 h-full w-3/4 max-w-sm
+                         bg-gradient-to-b from-black via-zinc-900 to-black
+                         border-l border-white/10
+                         shadow-2xl
+                         flex flex-col justify-center items-center gap-10"
+            >
+              {navLinks.map((item, index) => (
+                <motion.div
+                  key={item.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <NavLink
+                    to={item.path}
+                    onClick={() => setIsOpen(false)}
+                    className={({ isActive }) =>
+                      `text-2xl font-medium transition-all duration-300 ${
+                        isActive
+                          ? "text-blue-500 scale-110"
+                          : "text-gray-300 hover:text-white hover:scale-105"
+                      }`
+                    }
+                  >
+                    {item.name}
+                  </NavLink>
+                </motion.div>
+              ))}
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </motion.nav>
