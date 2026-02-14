@@ -19,82 +19,64 @@ const Navbar = () => {
   ];
 
   return (
-    <motion.nav
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className="fixed top-0 left-0 w-full z-50 backdrop-blur-md
-                 bg-black/40 border-b border-white/10"
-    >
-      <div className="max-w-7xl mx-auto flex justify-between items-center px-6 md:px-8 py-4">
-        {/* Logo */}
-        <motion.h1
-          whileHover={{ scale: 1.05 }}
-          className="text-xl font-bold text-white"
-        >
-          <NavLink to="/" className="group">
-            Name{" "}
-            <span className="text-blue-500 group-hover:text-blue-400 transition">
-              .
-            </span>
+    <>
+      <motion.nav
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="fixed top-0 left-0 w-full z-50 bg-black/60 backdrop-blur-md border-b border-white/10"
+      >
+        <div className="max-w-7xl mx-auto flex items-center justify-between h-16 px-6 md:px-8">
+          
+          {/* Logo */}
+          <NavLink to="/" className="text-xl font-bold text-white">
+            Name<span className="text-blue-500">.</span>
           </NavLink>
-        </motion.h1>
 
-        {/* Desktop Links */}
-        <ul className="hidden md:flex gap-8 font-medium">
-          {navLinks.map((item) => (
-            <motion.li
-              key={item.name}
-              variants={navItem}
-              initial="hidden"
-              animate="visible"
-              transition={{ duration: 0.4 }}
-            >
-              <NavLink
-                to={item.path}
-                className="relative text-gray-300 hover:text-white transition"
+          {/* Desktop Links */}
+          <ul className="hidden md:flex items-center gap-8 font-medium">
+            {navLinks.map((item) => (
+              <motion.li
+                key={item.name}
+                variants={navItem}
+                initial="hidden"
+                animate="visible"
               >
-                {({ isActive }) => (
-                  <>
-                    <span
-                      className={`transition ${
-                        isActive ? "text-white font-semibold" : ""
-                      }`}
-                    >
-                      {item.name}
-                    </span>
-                    <motion.span
-                      layout
-                      className={`absolute left-0 -bottom-1 h-[2px] w-full rounded-full
-                        ${isActive ? "bg-blue-500" : "bg-transparent"}`}
-                    />
-                  </>
-                )}
-              </NavLink>
-            </motion.li>
-          ))}
-        </ul>
+                <NavLink
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `relative text-gray-300 hover:text-white transition ${
+                      isActive ? "text-white font-semibold" : ""
+                    }`
+                  }
+                >
+                  {item.name}
+                </NavLink>
+              </motion.li>
+            ))}
+          </ul>
 
-        {/* Hamburger Icon */}
-        <div
-          className="md:hidden text-2xl text-white cursor-pointer z-50"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <FaTimes /> : <FaBars />}
+          {/* Hamburger */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden text-white text-2xl focus:outline-none"
+          >
+            {isOpen ? <FaTimes /> : <FaBars />}
+          </button>
         </div>
-      </div>
+      </motion.nav>
 
-      {/* Modern Mobile Menu */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <>
             {/* Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.6 }}
+              animate={{ opacity: 0.5 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black backdrop-blur-sm"
+              className="fixed inset-0 bg-black z-40"
               onClick={() => setIsOpen(false)}
             />
 
@@ -103,40 +85,30 @@ const Navbar = () => {
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="fixed top-0 right-0 h-full w-3/4 max-w-sm
-                         bg-gradient-to-b from-black via-zinc-900 to-black
-                         border-l border-white/10
-                         shadow-2xl
-                         flex flex-col justify-center items-center gap-10"
+              transition={{ duration: 0.35 }}
+              className="fixed top-0 right-0 h-full w-72 bg-black z-50 shadow-xl flex flex-col pt-20 px-6 gap-6"
             >
-              {navLinks.map((item, index) => (
-                <motion.div
+              {navLinks.map((item) => (
+                <NavLink
                   key={item.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  to={item.path}
+                  onClick={() => setIsOpen(false)}
+                  className={({ isActive }) =>
+                    `text-lg transition ${
+                      isActive
+                        ? "text-blue-500 font-semibold"
+                        : "text-gray-300 hover:text-white"
+                    }`
+                  }
                 >
-                  <NavLink
-                    to={item.path}
-                    onClick={() => setIsOpen(false)}
-                    className={({ isActive }) =>
-                      `text-2xl font-medium transition-all duration-300 ${
-                        isActive
-                          ? "text-blue-500 scale-110"
-                          : "text-gray-300 hover:text-white hover:scale-105"
-                      }`
-                    }
-                  >
-                    {item.name}
-                  </NavLink>
-                </motion.div>
+                  {item.name}
+                </NavLink>
               ))}
             </motion.div>
           </>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </>
   );
 };
 
