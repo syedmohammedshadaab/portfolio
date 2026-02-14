@@ -8,16 +8,18 @@ import EmailIcon from "../components/EmailIcon";
 import Projects from "./Projects";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0 },
 };
 
+const sectionSpacing = "mb-32";
+
 const Home = () => {
   return (
-    <div className="min-h-screen w-full px-5 sm:px-8 md:px-12 pt-28 pb-20 text-white relative z-10">
+    <div className="min-h-screen w-full px-6 sm:px-10 pt-32 pb-24 text-white relative">
 
       {/* ================= HERO ================= */}
-      <section className="max-w-6xl mx-auto mb-24 text-center md:text-left">
+      <section className="max-w-4xl mx-auto text-center md:text-left">
 
         <TypewriterText />
 
@@ -26,86 +28,91 @@ const Home = () => {
           initial="hidden"
           animate="visible"
           transition={{ duration: 0.6 }}
-          className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 leading-tight"
+          className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mt-6"
         >
           Hi, I'm{" "}
           <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 bg-clip-text text-transparent">
-            Syed Mohammed Shadaab``
+            Name
           </span>
         </motion.h1>
 
-        <motion.div
+        <motion.p
           variants={fadeUp}
           initial="hidden"
           animate="visible"
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="max-w-2xl mx-auto md:mx-0"
+          className="mt-6 text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto md:mx-0"
         >
-          <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed">
-            Full Stack Developer building scalable applications with{" "}
-            <span className="text-blue-400 font-medium">Angular</span> and{" "}
-            <span className="text-indigo-400 font-medium">Spring Boot</span>
-          </p>
+          Full Stack Developer building scalable applications with{" "}
+          <span className="text-blue-400 font-medium">Angular</span> and{" "}
+          <span className="text-indigo-400 font-medium">Spring Boot</span>.
+        </motion.p>
 
-          {/* SOCIAL ICONS */}
-          <div className="flex justify-center md:justify-start items-center gap-4 mt-8">
-            <a
-              href=""
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:scale-110 transition-transform"
-              aria-label="GitHub"
-            >
-              <GitHubIcon className="w-7 h-7 sm:w-8 sm:h-8 text-slate-400 hover:text-white transition" />
-            </a>
-
-            <a
-              href=""
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:scale-110 transition-transform"
-              aria-label="LinkedIn"
-            >
-              <LinkedInIcon className="w-7 h-7 sm:w-8 sm:h-8 text-slate-400 hover:text-white transition" />
-            </a>
-
-            <EmailIcon email="" />
-          </div>
-        </motion.div>
-
-        {/* CTA BUTTONS */}
+        {/* SOCIAL GLASS CONTAINER */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-col sm:flex-row justify-center md:justify-start gap-4 mt-10"
+          transition={{ duration: 0.6, delay: 0.25 }}
+          className="flex justify-center md:justify-start gap-6 mt-10
+                     bg-white/5 backdrop-blur-md
+                     border border-white/10
+                     px-8 py-4 rounded-full w-fit mx-auto md:mx-0"
         >
+          <a href="" target="_blank" rel="noopener noreferrer">
+            <GitHubIcon className="w-6 h-6 text-gray-400 hover:text-white transition hover:scale-110" />
+          </a>
+          <a href="" target="_blank" rel="noopener noreferrer">
+            <LinkedInIcon className="w-6 h-6 text-gray-400 hover:text-white transition hover:scale-110" />
+          </a>
+          <EmailIcon email="" />
+        </motion.div>
+
+        {/* CTA SECTION */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          transition={{ duration: 0.6, delay: 0.35 }}
+          className="mt-12 flex flex-col items-center md:items-start gap-6"
+        >
+          {/* Primary Button */}
           <a
             href="/projects"
-            className="w-full sm:w-auto text-center bg-blue-600 hover:bg-blue-700 transition text-white px-7 py-3 rounded-xl shadow-lg shadow-blue-600/30"
+            className="w-full sm:w-auto text-center
+                       bg-blue-600 hover:bg-blue-700
+                       px-8 py-4 rounded-full
+                       font-semibold
+                       shadow-[0_0_30px_rgba(59,130,246,0.4)]
+                       transition-all duration-300"
           >
             View Projects
           </a>
 
-          <a
-            href=""
-            target="_blank"
-            rel="noopener noreferrer"
-            download
-            className="w-full sm:w-auto text-center backdrop-blur-md bg-white/10 hover:bg-white/20 transition border border-white/20 text-white px-7 py-3 rounded-xl"
-          >
-            Download Resume
-          </a>
+          {/* Secondary Actions */}
+          <div className="flex gap-8 text-sm text-gray-400">
+            <a
+              href=""
+              target="_blank"
+              rel="noopener noreferrer"
+              download
+              className="hover:text-white transition"
+            >
+              Download Resume
+            </a>
 
-          <a
-            href=""
-            className="w-full sm:w-auto text-center text-gray-300 hover:text-white transition underline underline-offset-4 py-3"
-          >
-            Contact Me
-          </a>
+            <a
+              href=""
+              className="hover:text-white transition"
+            >
+              Contact
+            </a>
+          </div>
         </motion.div>
       </section>
+
+      {/* Divider */}
+      <div className="h-px bg-white/10 my-24 max-w-6xl mx-auto" />
 
       {/* ================= ABOUT ================= */}
       <motion.section
@@ -114,11 +121,12 @@ const Home = () => {
         whileInView="visible"
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="max-w-3xl mx-auto mb-24 text-center md:text-left"
+        className={`max-w-3xl mx-auto text-center md:text-left ${sectionSpacing}`}
       >
-        <h2 className="text-xl sm:text-2xl font-semibold mb-5">
-          About Me
+        <h2 className="text-2xl sm:text-3xl font-bold mb-6">
+          <span className="text-blue-500">/</span> About
         </h2>
+
         <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
           I am a passionate full-stack developer focused on building clean,
           maintainable, and high-performance web applications using modern
@@ -133,28 +141,30 @@ const Home = () => {
         whileInView="visible"
         viewport={{ amount: 0.3 }}
         transition={{ duration: 0.6 }}
-        className="max-w-6xl mx-auto mb-24 text-center md:text-left"
+        className={`max-w-6xl mx-auto ${sectionSpacing}`}
       >
-        <h2 className="text-xl sm:text-2xl font-semibold mb-6">
-          Skills
+        <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center md:text-left">
+          <span className="text-blue-500">/</span> Skills
         </h2>
 
-        <div className="flex flex-wrap justify-center md:justify-start gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {[
-            "Java", "TypeScript", "Angular", "Bootstrap", "HTML5", "CSS3",
-            "Spring Boot", "Spring MVC", "JPA", "Hibernate",
-            "MySQL", "MongoDB", "Git", "Maven", "Postman",
-            "Docker", "Spring Tool Suite", "IntelliJ IDEA",
-            "Visual Studio Code", "Vercel", "Railway", "Render", "React"
+            "Java", "TypeScript", "Angular", "React",
+            "Spring Boot", "Spring MVC", "Hibernate",
+            "MySQL", "MongoDB", "Docker",
+            "Git", "Postman", "Maven",
+            "IntelliJ", "VS Code", "Vercel"
           ].map((skill) => (
-            <span
+            <div
               key={skill}
-              className="px-4 py-2 rounded-full text-xs sm:text-sm font-medium
-              text-gray-200 backdrop-blur-md bg-white/10 border border-white/20
-              hover:bg-white/20 hover:border-blue-400/50 transition"
+              className="text-center py-3 rounded-xl
+                         bg-white/5 border border-white/10
+                         hover:border-blue-500/50
+                         hover:bg-white/10
+                         transition duration-300"
             >
               {skill}
-            </span>
+            </div>
           ))}
         </div>
       </motion.section>
@@ -166,8 +176,12 @@ const Home = () => {
         whileInView="visible"
         viewport={{ amount: 0.3 }}
         transition={{ duration: 0.6 }}
-        className="max-w-6xl mx-auto mb-24"
+        className={`max-w-6xl mx-auto ${sectionSpacing}`}
       >
+        <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center md:text-left">
+          <span className="text-blue-500">/</span> Experience
+        </h2>
+
         <TimelinePage2 />
       </motion.section>
 
@@ -178,8 +192,12 @@ const Home = () => {
         whileInView="visible"
         viewport={{ amount: 0.3 }}
         transition={{ duration: 0.6 }}
-        className="max-w-6xl mx-auto mb-10"
+        className="max-w-6xl mx-auto"
       >
+        <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center md:text-left">
+          <span className="text-blue-500">/</span> Projects
+        </h2>
+
         <Projects />
       </motion.section>
     </div>
