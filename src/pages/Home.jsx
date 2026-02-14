@@ -18,10 +18,8 @@ const sectionSpacing = "mb-36";
 const Home = () => {
   return (
     <div className="min-h-screen w-full px-6 sm:px-10 lg:px-16 pt-32 pb-24 text-white relative">
-
       {/* ================= HERO ================= */}
       <section className="max-w-5xl mx-auto text-center md:text-left">
-
         <TypewriterText />
 
         <motion.h1
@@ -33,7 +31,7 @@ const Home = () => {
         >
           Hi, I'm{" "}
           <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-500 bg-clip-text text-transparent">
-            Name
+            Syed Mohammed Shadaab
           </span>
         </motion.h1>
 
@@ -45,8 +43,8 @@ const Home = () => {
           className="mt-6 text-lg lg:text-xl text-gray-300 max-w-2xl mx-auto md:mx-0 leading-relaxed"
         >
           Full Stack Developer building scalable applications with{" "}
-          <span className="text-blue-400 font-medium">Angular</span> and{" "}
-          <span className="text-indigo-400 font-medium">Spring Boot</span>.
+          <span className="text-blue-300 font-medium">Angular</span> and{" "}
+          <span className="text-blue-400 font-medium">Spring Boot</span>.
         </motion.p>
 
         {/* SOCIAL ICONS */}
@@ -57,9 +55,15 @@ const Home = () => {
           transition={{ duration: 0.6, delay: 0.25 }}
           className="flex items-center justify-center md:justify-start gap-5 mt-10"
         >
-          {[ 
-            { component: <GitHubIcon />, href: "" },
-            { component: <LinkedInIcon />, href: "" }
+          {[
+            {
+              component: <GitHubIcon />,
+              href: "https://github.com/syedmohammedshadaab",
+            },
+            {
+              component: <LinkedInIcon />,
+              href: "https://www.linkedin.com/in/syedmohammedshadaaab",
+            },
           ].map((item, index) => (
             <a
               key={index}
@@ -73,19 +77,19 @@ const Home = () => {
                          hover:border-blue-500/40
                          transition duration-300"
             >
-              <div className="w-5 h-5 text-gray-300">
-                {item.component}
-              </div>
+              <div className="w-5 h-5 text-gray-300">{item.component}</div>
             </a>
           ))}
 
-          <div className="flex items-center justify-center
+          <div
+            className="flex items-center justify-center
                           w-11 h-11 rounded-full
                           bg-white/5 border border-white/10
                           hover:bg-blue-600/20
                           hover:border-blue-500/40
-                          transition duration-300">
-            <EmailIcon email="" />
+                          transition duration-300"
+          >
+            <EmailIcon email="mailto:syedshadaab2@gmail.com" />
           </div>
         </motion.div>
 
@@ -111,7 +115,7 @@ const Home = () => {
 
           {/* Premium Resume Button */}
           <a
-            href="/resume.pdf"
+            href="resume/Syed_Mohammed_Shadaab_2025.pdf"
             download
             className="group relative inline-flex items-center gap-3
                        px-8 py-4 rounded-full font-semibold text-base
@@ -148,10 +152,29 @@ const Home = () => {
 
         <div className="flex flex-wrap justify-center md:justify-start gap-4">
           {[
-            "Java", "TypeScript", "Angular", "React",
-            "Spring Boot", "Hibernate", "MySQL",
-            "MongoDB", "Docker", "Git",
-            "Postman", "IntelliJ", "VS Code", "Vercel"
+            "Java",
+            "TypeScript",
+            "Angular",
+            "Bootstrap",
+            "HTML5",
+            "CSS3",
+            "Spring Boot",
+            "Spring MVC",
+            "JPA",
+            "Hibernate",
+            "MySQL",
+            "MongoDB",
+            "Git",
+            "Maven",
+            "Postman",
+            "Docker",
+            "Spring Tool Suite",
+            "IntelliJ IDEA",
+            "Visual Studio Code",
+            "Vercel",
+            "Railway",
+            "Render",
+            "React",
           ].map((skill) => (
             <div
               key={skill}
