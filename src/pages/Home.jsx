@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
-import { FiDownload } from "react-icons/fi";
+import React, { useRef, useEffect, useState } from "react";
+import { motion, useMotionValue, useSpring, useScroll } from "framer-motion";
+import { FiDownload, FiArrowRight } from "react-icons/fi";
 import TypewriterText from "../components/TypewriterText";
 import TimelinePage2 from "../components/TimelinePage2";
 import GitHubIcon from "../components/GithubIcon";
@@ -16,51 +16,63 @@ const fadeUp = {
 const sectionSpacing = "mb-36";
 
 const Home = () => {
+  /* ================= Scroll Progress ================= */
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+
+  /* ================= Cursor Glow ================= */
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  useEffect(() => {
+    const move = (e) => setCursorPos({ x: e.clientX, y: e.clientY });
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, []);
+
   /* ================= Magnetic Button ================= */
   const buttonRef = useRef(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-
   const springX = useSpring(x, { stiffness: 150, damping: 15 });
   const springY = useSpring(y, { stiffness: 150, damping: 15 });
 
-  const handleMouseMove = (e) => {
+  const handleMove = (e) => {
     const rect = buttonRef.current.getBoundingClientRect();
-    const offsetX = e.clientX - (rect.left + rect.width / 2);
-    const offsetY = e.clientY - (rect.top + rect.height / 2);
-
-    x.set(offsetX * 0.2);
-    y.set(offsetY * 0.2);
+    x.set((e.clientX - (rect.left + rect.width / 2)) * 0.2);
+    y.set((e.clientY - (rect.top + rect.height / 2)) * 0.2);
   };
 
-  const handleMouseLeave = () => {
+  const reset = () => {
     x.set(0);
     y.set(0);
   };
 
   return (
     <div className="relative min-h-screen w-full px-6 sm:px-10 lg:px-16 pt-28 sm:pt-32 pb-24 text-white overflow-hidden">
+      {/* Scroll Indicator */}
+      <motion.div
+        style={{ scaleX }}
+        className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-500 origin-left z-50"
+      />
 
-      {/* ================= Ambient Background Glow ================= */}
-      <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-600/20 blur-[160px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[-250px] right-[-200px] w-[500px] h-[500px] bg-indigo-600/20 blur-[140px] rounded-full pointer-events-none" />
+      {/* Cursor Glow */}
+      <div
+        className="fixed w-72 h-72 bg-blue-500/10 blur-[120px] rounded-full pointer-events-none z-0"
+        style={{
+          transform: `translate(${cursorPos.x - 150}px, ${cursorPos.y - 150}px)`,
+        }}
+      />
+
+      {/* Grid Background */}
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
 
       {/* ================= HERO ================= */}
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="relative max-w-5xl mx-auto text-center md:text-left z-10"
-      >
+      <section className="relative max-w-5xl mx-auto text-center md:text-left z-10">
         <TypewriterText />
 
-        {/* Parallax Title */}
         <motion.h1
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.6 }}
-          whileHover={{ y: -5 }}
           className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mt-6"
         >
           Hi, I'm{" "}
@@ -73,138 +85,75 @@ const Home = () => {
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="mt-6 text-base sm:text-lg lg:text-xl text-gray-300 max-w-xl mx-auto md:mx-0 leading-relaxed"
+          transition={{ delay: 0.15 }}
+          className="mt-6 text-base sm:text-lg lg:text-xl text-gray-300 max-w-xl"
         >
           Full Stack Developer building scalable applications with{" "}
-          <span className="text-blue-300 font-medium">Angular</span> and{" "}
-          <span className="text-blue-400 font-medium">Spring Boot</span>.
+          <span className="text-blue-300">Angular</span> and{" "}
+          <span className="text-blue-400">Spring Boot</span>.
         </motion.p>
 
-        {/* SOCIAL ICONS */}
+        {/* CTA */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.6, delay: 0.25 }}
-          className="flex items-center justify-center md:justify-start gap-5 mt-8"
+          transition={{ delay: 0.3 }}
+          className="mt-10 flex flex-col sm:flex-row gap-5"
         >
-          {[{ component: <GitHubIcon />, href: "" },
-            { component: <LinkedInIcon />, href: "" }].map((item, index) => (
-            <a
-              key={index}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center
-                         w-11 h-11 rounded-full
-                         bg-white/5 border border-white/10
-                         hover:bg-blue-600/20
-                         hover:border-blue-500/40
-                         transition duration-300"
-            >
-              <div className="w-5 h-5 text-gray-300">{item.component}</div>
-            </a>
-          ))}
-
-          <div className="flex items-center justify-center
-                          w-11 h-11 rounded-full
-                          bg-white/5 border border-white/10
-                          hover:bg-blue-600/20
-                          hover:border-blue-500/40
-                          transition duration-300">
-            <EmailIcon email="" />
-          </div>
-        </motion.div>
-
-        {/* CTA SECTION */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          transition={{ duration: 0.6, delay: 0.35 }}
-          className="mt-10 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-5"
-        >
-          {/* View Projects */}
           <a
             href="/projects"
-            className="w-full sm:w-auto text-center
-                       bg-blue-600 hover:bg-blue-700
-                       px-8 py-4 rounded-full
-                       font-semibold text-base
-                       shadow-[0_0_35px_rgba(59,130,246,0.4)]
-                       transition-all duration-300"
+            className="flex items-center justify-center gap-3 px-8 py-4 rounded-full
+                       border border-blue-500 text-blue-400
+                       hover:bg-blue-600 hover:text-white transition"
           >
-            View Projects
+            View Projects <FiArrowRight />
           </a>
 
-          {/* Ultra Premium Resume Button */}
           <motion.a
             ref={buttonRef}
             href="/resume.pdf"
             download
             style={{ x: springX, y: springY }}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            className="relative w-full sm:w-auto flex items-center justify-center gap-3
-                       px-8 py-4 rounded-full font-semibold text-base
-                       text-white overflow-hidden group"
+            onMouseMove={handleMove}
+            onMouseLeave={reset}
+            className="relative flex items-center justify-center gap-3 px-8 py-4 rounded-full
+                       font-semibold text-white overflow-hidden"
           >
-            {/* Animated Gradient Border */}
             <span className="absolute inset-0 rounded-full p-[2px] bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-500 animate-[spin_6s_linear_infinite]" />
             <span className="absolute inset-[2px] rounded-full bg-black" />
-
-            {/* Content */}
-            <FiDownload className="relative z-10 text-lg" />
+            <FiDownload className="relative z-10" />
             <span className="relative z-10">Download Resume</span>
           </motion.a>
         </motion.div>
-      </motion.section>
+      </section>
 
-      {/* Divider */}
-      <div className="h-px bg-white/10 my-28 max-w-6xl mx-auto relative z-10" />
-
-      {/* ================= SKILLS ================= */}
+      {/* ================= ABOUT ================= */}
       <motion.section
         variants={fadeUp}
         initial="hidden"
         whileInView="visible"
-        viewport={{ amount: 0.3 }}
+        viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className={`relative z-10 max-w-6xl mx-auto ${sectionSpacing}`}
+        className={`relative z-10 max-w-4xl mx-auto mt-32 ${sectionSpacing}`}
       >
-        <h2 className="text-3xl font-bold mb-10 text-center md:text-left">
-          <span className="text-blue-500">/</span> Skills
-        </h2>
+        <div className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl p-8 md:p-12 hover:border-blue-500/40 transition">
+          <h2 className="text-3xl font-bold mb-6">
+            <span className="text-blue-500">/</span> About Me
+          </h2>
 
-        <div className="flex flex-wrap justify-center md:justify-start gap-4">
-          {[
-            "Java","TypeScript","Angular","Bootstrap","HTML5","CSS3",
-            "Spring Boot","Spring MVC","JPA","Hibernate","MySQL",
-            "MongoDB","Git","Maven","Postman","Docker",
-            "Spring Tool Suite","IntelliJ IDEA",
-            "Visual Studio Code","Vercel","Railway","Render","React"
-          ].map((skill) => (
-            <motion.div
-              key={skill}
-              whileHover={{ y: -6, scale: 1.08 }}
-              transition={{ type: "spring", stiffness: 200 }}
-              className="px-6 py-3 rounded-full
-                         bg-white/5 border border-white/10
-                         backdrop-blur-md
-                         hover:bg-blue-600/20
-                         hover:border-blue-500/50
-                         hover:shadow-[0_0_25px_rgba(59,130,246,0.4)]"
-            >
-              {skill}
-            </motion.div>
-          ))}
+          <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
+            I’m a full-stack developer who enjoys building clean, scalable, and
+            maintainable web applications. I focus on writing solid backend
+            logic with Spring Boot while crafting intuitive, responsive
+            interfaces using modern frontend frameworks.
+          </p>
         </div>
       </motion.section>
 
       {/* ================= EXPERIENCE ================= */}
       <section className={`relative z-10 max-w-6xl mx-auto ${sectionSpacing}`}>
-        <h2 className="text-3xl font-bold mb-10 text-center md:text-left">
+        <h2 className="text-3xl font-bold mb-10">
           <span className="text-blue-500">/</span> Experience
         </h2>
         <TimelinePage2 />
@@ -212,7 +161,7 @@ const Home = () => {
 
       {/* ================= PROJECTS ================= */}
       <section className="relative z-10 max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold mb-10 text-center md:text-left">
+        <h2 className="text-3xl font-bold mb-10">
           <span className="text-blue-500">/</span> Projects
         </h2>
         <Projects />
