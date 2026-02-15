@@ -61,15 +61,16 @@ const Home = () => {
 
   return (
     <div className="relative min-h-screen w-full px-6 sm:px-10 lg:px-16 pt-28 sm:pt-32 pb-24 text-white bg-black overflow-hidden">
-
+      
       {/* Scroll Progress */}
       <motion.div
         style={{ scaleX }}
         className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 origin-left z-50"
       />
 
-      {/* ===== GRID BACKGROUND ===== */}
+      {/* ===== GRID + MIDNIGHT MIST BACKGROUND ===== */}
       <div className="absolute inset-0 z-0">
+        {/* Grid Background */}
         <div
           className="absolute inset-0 opacity-30"
           style={{
@@ -78,6 +79,18 @@ const Home = () => {
               linear-gradient(to right, rgba(255,255,255,0.08) 1px, transparent 1px)
             `,
             backgroundSize: "50px 50px",
+          }}
+        />
+
+        {/* Midnight Mist Radial Gradient */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+              radial-gradient(circle at 50% 100%, rgba(70, 85, 110, 0.5) 0%, transparent 60%),
+              radial-gradient(circle at 50% 100%, rgba(99, 102, 241, 0.4) 0%, transparent 70%),
+              radial-gradient(circle at 50% 100%, rgba(181, 184, 208, 0.3) 0%, transparent 80%)
+            `,
           }}
         />
       </div>
@@ -96,7 +109,6 @@ const Home = () => {
 
       {/* ===== CONTENT ===== */}
       <div className="relative z-20">
-
         {/* HERO */}
         <section className="max-w-5xl mx-auto text-center md:text-left">
           <TypewriterText />
@@ -214,7 +226,6 @@ const Home = () => {
           </h2>
           <Projects />
         </section>
-
       </div>
     </div>
   );
