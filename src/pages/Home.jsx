@@ -1,11 +1,9 @@
-import React, { useRef, useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring, useScroll } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { FiDownload, FiArrowRight } from "react-icons/fi";
+import { Link } from "react-router-dom";
 import TypewriterText from "../components/TypewriterText";
 import TimelinePage2 from "../components/TimelinePage2";
-import GitHubIcon from "../components/GithubIcon";
-import LinkedInIcon from "../components/LinkedInIcon";
-import EmailIcon from "../components/EmailIcon";
 import Projects from "./Projects";
 
 const fadeUp = {
@@ -20,50 +18,50 @@ const Home = () => {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
-  /* ================= Cursor Glow ================= */
+  /* ================= Cursor Glow (Desktop Only) ================= */
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+
   useEffect(() => {
+    if (window.innerWidth < 768) return;
+
     const move = (e) => setCursorPos({ x: e.clientX, y: e.clientY });
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
   }, []);
 
-  /* ================= Magnetic Button ================= */
-  const buttonRef = useRef(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 150, damping: 15 });
-  const springY = useSpring(y, { stiffness: 150, damping: 15 });
-
-  const handleMove = (e) => {
-    const rect = buttonRef.current.getBoundingClientRect();
-    x.set((e.clientX - (rect.left + rect.width / 2)) * 0.2);
-    y.set((e.clientY - (rect.top + rect.height / 2)) * 0.2);
-  };
-
-  const reset = () => {
-    x.set(0);
-    y.set(0);
-  };
-
   return (
     <div className="relative min-h-screen w-full px-6 sm:px-10 lg:px-16 pt-28 sm:pt-32 pb-24 text-white overflow-hidden">
+
       {/* Scroll Indicator */}
       <motion.div
         style={{ scaleX }}
         className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-500 origin-left z-50"
       />
 
-      {/* Cursor Glow */}
+      {/* Ambient Glow */}
+      <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-blue-600/10 blur-[160px] rounded-full" />
+      <div className="absolute top-[40%] right-[-200px] w-[400px] h-[400px] bg-indigo-600/10 blur-[140px] rounded-full" />
+
+      {/* Cursor Glow (Desktop Only) */}
+      {window.innerWidth >= 768 && (
+        <div
+          className="fixed w-72 h-72 bg-blue-500/10 blur-[120px] rounded-full pointer-events-none z-0"
+          style={{
+            transform: `translate(${cursorPos.x - 150}px, ${cursorPos.y - 150}px)`,
+          }}
+        />
+      )}
+
+      {/* Grid Background (Improved for Mobile) */}
       <div
-        className="fixed w-72 h-72 bg-blue-500/10 blur-[120px] rounded-full pointer-events-none z-0"
-        style={{
-          transform: `translate(${cursorPos.x - 150}px, ${cursorPos.y - 150}px)`,
-        }}
+        className="absolute inset-0 -z-10 
+        bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),
+            linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)]
+        bg-[size:42px_42px]"
       />
 
-      {/* Grid Background */}
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
+      {/* Radial Overlay */}
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_0%,rgba(0,0,0,0.6)_100%)]" />
 
       {/* ================= HERO ================= */}
       <section className="relative max-w-5xl mx-auto text-center md:text-left z-10">
@@ -93,38 +91,41 @@ const Home = () => {
           <span className="text-blue-400">Spring Boot</span>.
         </motion.p>
 
-        {/* CTA */}
+        {/* CTA Section */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate="visible"
           transition={{ delay: 0.3 }}
-          className="mt-10 flex flex-col sm:flex-row gap-5"
+          className="mt-10 flex flex-col sm:flex-row gap-5 items-center sm:items-start"
         >
-          <a
-            href="/projects"
+          {/* View Projects */}
+          <Link
+            to="/projects"
             className="flex items-center justify-center gap-3 px-8 py-4 rounded-full
                        border border-blue-500 text-blue-400
                        hover:bg-blue-600 hover:text-white transition"
           >
             View Projects <FiArrowRight />
-          </a>
+          </Link>
 
-          <motion.a
-            ref={buttonRef}
+          {/* Download Resume (STATIC VERSION) */}
+          <a
             href="/resume.pdf"
             download
-            style={{ x: springX, y: springY }}
-            onMouseMove={handleMove}
-            onMouseLeave={reset}
-            className="relative flex items-center justify-center gap-3 px-8 py-4 rounded-full
-                       font-semibold text-white overflow-hidden"
+            className="flex items-center justify-center gap-3
+                       px-8 py-4 rounded-full
+                       font-semibold
+                       border border-blue-500
+                       text-blue-400
+                       bg-transparent
+                       transition-colors duration-300
+                       hover:bg-blue-600
+                       hover:text-white"
           >
-            <span className="absolute inset-0 rounded-full p-[2px] bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-500 animate-[spin_6s_linear_infinite]" />
-            <span className="absolute inset-[2px] rounded-full bg-black" />
-            <FiDownload className="relative z-10" />
-            <span className="relative z-10">Download Resume</span>
-          </motion.a>
+            <FiDownload className="text-lg" />
+            <span>Download Resume</span>
+          </a>
         </motion.div>
       </section>
 
@@ -134,7 +135,6 @@ const Home = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
         className={`relative z-10 max-w-4xl mx-auto mt-32 ${sectionSpacing}`}
       >
         <div className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl p-8 md:p-12 hover:border-blue-500/40 transition">
@@ -143,10 +143,9 @@ const Home = () => {
           </h2>
 
           <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
-            I’m a full-stack developer who enjoys building clean, scalable, and
-            maintainable web applications. I focus on writing solid backend
-            logic with Spring Boot while crafting intuitive, responsive
-            interfaces using modern frontend frameworks.
+            I’m a full-stack developer focused on building scalable backend
+            systems with Spring Boot and modern responsive frontend
+            applications.
           </p>
         </div>
       </motion.section>
