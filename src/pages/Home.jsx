@@ -10,7 +10,7 @@ const fadeUp = {
   visible: { opacity: 1, y: 0 },
 };
 
-const sectionSpacing = "mb-36";
+const sectionSpacing = "mb-40";
 
 const skills = [
   "Java",
@@ -62,13 +62,13 @@ const Home = () => {
   return (
     <div className="relative min-h-screen w-full px-6 sm:px-10 lg:px-16 pt-28 sm:pt-32 pb-24 text-white bg-black overflow-hidden">
 
-      {/* Scroll Progress Bar */}
+      {/* Scroll Progress */}
       <motion.div
         style={{ scaleX }}
         className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 origin-left z-50"
       />
 
-      {/* ===== GRID BACKGROUND (PROPERLY ADDED) ===== */}
+      {/* ===== GRID BACKGROUND ===== */}
       <div className="absolute inset-0 z-0">
         <div
           className="absolute inset-0 opacity-30"
@@ -82,6 +82,10 @@ const Home = () => {
         />
       </div>
 
+      {/* Animated Gradient Blobs */}
+      <div className="absolute top-[-100px] left-[-100px] w-[400px] h-[400px] bg-cyan-500/20 blur-[140px] rounded-full animate-pulse" />
+      <div className="absolute bottom-[-100px] right-[-100px] w-[400px] h-[400px] bg-indigo-600/20 blur-[140px] rounded-full animate-pulse" />
+
       {/* Cursor Glow */}
       <div
         className="fixed w-72 h-72 bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none z-10"
@@ -90,7 +94,7 @@ const Home = () => {
         }}
       />
 
-      {/* ===== CONTENT WRAPPER ===== */}
+      {/* ===== CONTENT ===== */}
       <div className="relative z-20">
 
         {/* HERO */}
@@ -130,23 +134,25 @@ const Home = () => {
           >
             <a
               href="/projects"
-              className="flex items-center justify-center gap-3 px-8 py-4 rounded-full border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-black transition"
+              className="group flex items-center justify-center gap-3 px-8 py-4 rounded-full border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-black transition-all duration-300"
             >
-              View Projects <FiArrowRight />
+              View Projects
+              <FiArrowRight className="group-hover:translate-x-1 transition" />
             </a>
 
             <a
               href="/resume.pdf"
               download
-              className="relative flex items-center justify-center gap-3 px-8 py-4 rounded-full font-semibold text-white overflow-hidden"
+              className="relative flex items-center justify-center gap-3 px-8 py-4 rounded-full font-semibold text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:scale-105 transition-transform duration-300"
             >
-              <span className="absolute inset-0 rounded-full p-[2px] bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 animate-[spin_6s_linear_infinite]" />
-              <span className="absolute inset-[2px] rounded-full bg-black" />
-              <FiDownload className="relative z-10" />
-              <span className="relative z-10">Download Resume</span>
+              <FiDownload />
+              Download Resume
             </a>
           </motion.div>
         </section>
+
+        {/* Divider */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent my-24" />
 
         {/* ABOUT */}
         <motion.section
@@ -154,10 +160,9 @@ const Home = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className={`max-w-4xl mx-auto mt-32 ${sectionSpacing}`}
+          className={`max-w-4xl mx-auto ${sectionSpacing}`}
         >
-          <div className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl p-8 md:p-12">
+          <div className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl p-8 md:p-12 hover:border-cyan-500/30 transition">
             <h2 className="text-3xl font-bold mb-6">
               <span className="text-cyan-500">/</span> About Me
             </h2>
@@ -175,7 +180,6 @@ const Home = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
           className={`max-w-6xl mx-auto ${sectionSpacing}`}
         >
           <h2 className="text-3xl font-bold mb-10">
@@ -187,7 +191,7 @@ const Home = () => {
               <motion.div
                 key={index}
                 whileHover={{ scale: 1.08 }}
-                className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-xl py-4 text-center font-medium hover:border-cyan-500/50 hover:bg-white/10 transition cursor-pointer"
+                className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-xl py-4 text-center font-medium hover:border-cyan-500 hover:bg-white/10 transition cursor-pointer"
               >
                 {skill}
               </motion.div>
