@@ -62,12 +62,25 @@ const Home = () => {
 
   return (
     <div className="relative min-h-screen w-full px-6 sm:px-10 lg:px-16 pt-28 sm:pt-32 pb-24 text-white overflow-hidden bg-black">
-      
+
       {/* Scroll Indicator */}
       <motion.div
         style={{ scaleX }}
         className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 origin-left z-50"
       />
+
+      {/* Premium Grid Background */}
+      <div className="absolute inset-0 -z-20">
+        {/* Grid Lines */}
+        <div
+          className="absolute inset-0 
+          bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),
+              linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)]
+          bg-[size:60px_60px]"
+        />
+        {/* Fade Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black" />
+      </div>
 
       {/* Cursor Glow */}
       <div
@@ -76,9 +89,6 @@ const Home = () => {
           transform: `translate(${cursorPos.x - 150}px, ${cursorPos.y - 150}px)`,
         }}
       />
-
-      {/* Grid Background */}
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
 
       {/* ================= HERO ================= */}
       <section className="relative max-w-5xl mx-auto text-center md:text-left z-10">
@@ -201,6 +211,7 @@ const Home = () => {
         </h2>
         <Projects />
       </section>
+
     </div>
   );
 };
