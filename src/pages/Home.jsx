@@ -121,8 +121,7 @@ const Home = () => {
           >
             Hi, I'm{" "}
             <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 bg-clip-text text-transparent">
-              Syed Mohammed Shadaab
-            </span>
+              Syed Mohammed             </span>
           </motion.h1>
 
           <motion.p
