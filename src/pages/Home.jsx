@@ -61,7 +61,6 @@ const Home = () => {
 
   return (
     <div className="relative min-h-screen w-full px-6 sm:px-10 lg:px-16 pt-28 sm:pt-32 pb-24 text-white bg-black overflow-hidden">
-      
       {/* Scroll Progress */}
       <motion.div
         style={{ scaleX }}
@@ -121,7 +120,8 @@ const Home = () => {
           >
             Hi, I'm{" "}
             <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 bg-clip-text text-transparent">
-              Syed Mohammed             </span>
+              Syed Mohammed Shadaab{" "}
+            </span>
           </motion.h1>
 
           <motion.p
